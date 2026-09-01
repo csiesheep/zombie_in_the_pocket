@@ -1,4 +1,4 @@
-<!-- Grave Errand icon sprite. Hand-authored, house style: 24x24, line art in
+<!-- Zombie in My Pocket icon sprite. Hand-authored, house style: 24x24, line art in
      currentColor so tiles and HUD tint it themselves. Fetched once by
      render.js and injected inline, because external <use> references are not
      reliable across browsers. Symbol ids are `tile-<tileId>` / `item-<itemId>`

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Grave Errand: a headstone with the relic's mark, on the house near-black. -->
+  <!-- Zombie in My Pocket: a headstone with the relic's mark, on the house near-black. -->
   <rect width="32" height="32" rx="6" fill="#0a0b0d"/>
   <g fill="none" stroke="#7fb539" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M9 26V14a7 7 0 0 1 14 0v12z"/>

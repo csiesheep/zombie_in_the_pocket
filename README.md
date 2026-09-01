@@ -1,4 +1,4 @@
-# Grave Errand
+# Zombie in My Pocket
 
 A solo zombie survival board game in the browser. Explore a dead house room by
 room, find the relic, and bury it in the family plot before midnight.

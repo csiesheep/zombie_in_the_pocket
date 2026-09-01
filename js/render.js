@@ -22,7 +22,7 @@ function currentChoices() {
   const doorways = [...document.querySelectorAll(".doorway")];
   const cards = [...document.querySelectorAll("#actions .action")];
   if (doorways.length && cards.length) {
-    console.warn("Grave Errand: doorways and action cards on screen together");
+    console.warn("Zombie in My Pocket: doorways and action cards on screen together");
   }
   return doorways.length ? doorways : cards;
 }

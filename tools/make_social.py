@@ -182,7 +182,7 @@ def centred(text, font, y, fill):
 
 # High in the frame: the house needs the bottom two thirds, and a crawler's
 # thumbnail crops from the edges.
-centred("Grave Errand", title, 96, TEXT)
+centred("Zombie in My Pocket", title, 96, TEXT)
 centred("Find the relic. Bury it before midnight.", sub, 232, MUTED)
 
 img.save(OUT, optimize=True)

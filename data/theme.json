@@ -1,6 +1,6 @@
 {
   "_note": "The skin. Every player-visible string lives here; mechanics live in tiles.json / cards.json / items.json and never change. Swapping this file re-themes the whole game. Written clean-room: these names and lines are our own, not the original's.",
-  "title": "Grave Errand",
+  "title": "Zombie in My Pocket",
   "tagline": "Find the relic. Bury it in the family plot. Beat the clock to midnight — alone.",
   "words": {
     "monsters": "risen",
