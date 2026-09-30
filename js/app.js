@@ -47,6 +47,26 @@ import {
 import { registerWorker, wireFullscreen, keepAwake, wireSleep } from "./shell.js";
 import { recordVerdict } from "./tally.js";
 import { epilogue } from "./epilogue.js";
+import { portalStart, portalResult, portalRestart, portalBeaconOnLeave } from "./portal.js"; // 遊戲路口 result reporting (a no-op without a gp_token)
+
+// One platform round per run. startNewGame() is the only place a Game is
+// built -- it is both the boot and the "new game" button -- so it is the whole
+// lifecycle: the first run opens the round, every later one restarts it in a
+// single request. Nothing is awaited, and without ?gp_token every call is a
+// no-op.
+const portal = { opened: false, live: false, key: null, n: 0 };
+function portalBegin(key) {
+  if (portal.key === key) return;
+  const unfinished = portal.live;
+  portal.key = key; portal.live = true;
+  if (!portal.opened) { portal.opened = true; portalStart(); }
+  else portalRestart(unfinished ? "abandon" : undefined);
+}
+function portalEnd(key, won) {
+  if (portal.key !== key || !portal.live) return;
+  portal.live = false;
+  portalResult(won ? "win" : "lose");
+}
 
 const DIR_WORD = { N: "north", E: "east", S: "south", W: "west" };
 
@@ -713,6 +733,9 @@ class Game {
     if (!this.tallied) {
       this.tallied = true;
       recordVerdict(won);
+      // Same guard, same reason: the win path re-enters gameOver, and a result
+      // may only be reported once. tally.js keeps no score, so none is sent.
+      portalEnd(this.pkey, won);
     }
 
     // A win is always a burial — buryTotem is the only thing that sets it — so
@@ -788,6 +811,8 @@ function startNewGame(seed) {
   stopMurmur();
   startAmbience();
   game = new Game(data, seed != null ? { seed } : {});
+  game.pkey = "run:" + ++portal.n;
+  portalBegin(game.pkey);
   window.__game = game; // handy for debugging
   const el = document.getElementById("seed-value");
   if (el) el.textContent = game.seed;
@@ -960,5 +985,9 @@ async function main() {
     log("Failed to start the game — see console.", "bad");
   }
 }
+
+// Leaving the page mid-run reports the round as abandoned; a finished run has
+// already been reported and sends nothing.
+portalBeaconOnLeave(() => ({ outcome: "abandon" }));
 
 main();
